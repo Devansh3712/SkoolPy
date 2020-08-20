@@ -47,23 +47,21 @@ def onLeave(name):
 		print("Name not found in record, try capitalizing initials of your name")
 
 def showCurrentAtt():
-	if i in teacherAttendence:
-		for i in teacherAttendence:
-			if teacherAttendence[i]==1:
-				c="Present"
-			elif teacherAttendence[i]==2:
-				c="On Leave"
-			else:
-				c="Absent"
-			print("{} is {}".format(i,c))
-	else:
-		print("Name not found in record, try capitalizing initials of your name")
+	for i in teacherAttendence:
+		if teacherAttendence[i]==1:
+			c="Present"
+		elif teacherAttendence[i]==2:
+			c="On Leave"
+		else:
+			c="Absent"
+		print("{} is {}".format(i,c))
+
 
 def checkTeacherStatus(name):
-	if i in teacherAttendence:
+	if name in teacherAttendence:
 		for i in teacherAttendence:
 			if i==name:
-				print("{} teaches {}".format(name,list(subjects.keys())[list(subject.values()).index(i)]))
+				print("{} teaches {}".format(name,list(subjects.keys())[list(subjects.values()).index(i)]))
 				if teacherAttendence[i]==1:
 					print("{} is present".format(name))
 				elif teacherAttendence[i]==2:
@@ -73,9 +71,27 @@ def checkTeacherStatus(name):
 	else:
 		print("Name not found in record, try capitalizing initials of your name")
 
+def writeAttendence():
+	c=datetime.now().strftime("%d%B%y")+".txt"
+	f=open(c,"w")
+	for i in teacherAttendence:
+		if teacherAttendence[i]==1:
+			f.write("{} is present".format(i))
+		elif teacherAttendence[i]==2:
+			f.write("{} is on leave".format(i))
+		else:
+			f.write("{} is absent".format(i))
+		f.write("\n")
+	f.close()
+
 subjects={"Chemistry":"Sadhvi Gautam","Physics":"Liji Davis","Maths":"Vipin Kumar","CS":"Halina Gupta","English":"Sudhi Bhatia"}
 teacherAttendence={"Sadhvi Gautam":0,"Liji Davis":0,"Vipin Kumar":0,"Halina Gupta":0,"Sudhi Bhatia":0}
 
+CSG={"Monday":[1,1,0,0,1,1,0,0],"Tuesday":[0,0,1,1,1,1,0,0],"Wednesday":[1,1,1,1,0,0,1,1],"Thursday":[1,1,0,0,1,1,1,1],"Friday":[0,0,1,1,1,1,0,0]}
+PLD={"Monday":[1,1,1,1,0,0,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,0,0,1,1,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[0,0,0,0,1,1,1,1]}
+MVK={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[0,0,1,1,0,0,1,1],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[1,1,0,0,1,1,1,1]}
+CSHG={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[1,1,0,0,1,1,0,0],"Wednesday":[0,0,1,1,0,0,1,1],"Thursday":[1,1,0,0,0,0,1,1],"Friday":[1,1,1,1,1,1,0,0]}
+ESB={"Monday":[1,1,0,0,1,1,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[0,0,1,1,0,0,1,1],"Friday":[0,0,1,1,0,0,1,1]}
 
 print()
 print(">>> School Management System <<<")
@@ -111,3 +127,6 @@ while True:
 	elif tin=="7":
 		print("Terminating program")
 		break
+	if datetime.now().strftime("%H:%M")=="12:00":
+		writeAttendence()
+
