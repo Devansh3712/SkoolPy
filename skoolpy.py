@@ -85,14 +85,69 @@ def writeAttendence():
 		f.write("\n")
 	f.close()
 
+
+def showTimetable(name):
+	if name in teacherCode:
+		a=teacherCode[name]
+		if a=="CSG":
+			CSG={"Monday":[1,1,0,0,1,1,0,0],"Tuesday":[0,0,1,1,1,1,0,0],"Wednesday":[1,1,1,1,0,0,1,1],"Thursday":[1,1,0,0,1,1,1,1],"Friday":[0,0,1,1,1,1,0,0]}
+			for i in CSG:
+				if i==datetime.now().strftime("%A"):
+					a=1
+					for j in CSG[i]:
+						if j==1:
+							print("Period {} in class {}".format(a,j))
+						else:
+							print("Period {} is free".format(a))
+						a=a+1
+		elif a=="PLD":
+			PLD={"Monday":[1,1,1,1,0,0,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,0,0,1,1,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[0,0,0,0,1,1,1,1]}
+			for i in PLD:
+				if i==datetime.now().strftime("%A"):
+					a=1
+					for j in PLD[i]:
+						if j==1:
+							print("Period {} in class {}".format(a,j))
+						else:
+							print("Period {} is free".format(a))
+						a=a+1
+		elif a=="MVK":
+			MVK={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[0,0,1,1,0,0,1,1],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[1,1,0,0,1,1,1,1]}
+			for i in MVK:
+				if i==datetime.now().strftime("%A"):
+					a=1
+					for j in MVK[i]:
+						if j==1:
+							print("Period {} in class {}".format(a,j))
+						else:
+							print("Period {} is free".format(a))
+						a=a+1
+		elif a=="CSHG":
+			CSHG={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[1,1,0,0,1,1,0,0],"Wednesday":[0,0,1,1,0,0,1,1],"Thursday":[1,1,0,0,0,0,1,1],"Friday":[1,1,1,1,1,1,0,0]}
+			for i in CSHG:
+				if i==datetime.now().strftime("%A"):
+					a=1
+					for j in CSHG[i]:
+						if j==1:
+							print("Period {} in class {}".format(a,j))
+						else:
+							print("Period {} is free".format(a))
+						a=a+1
+		elif a=="ESB":
+			ESB={"Monday":[1,1,0,0,1,1,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[0,0,1,1,0,0,1,1],"Friday":[0,0,1,1,0,0,1,1]}
+			for i in ESB:
+				if i==datetime.now().strftime("%A"):
+					a=1
+					for j in ESB[i]:
+						if j==1:
+							print("Period {} in class {}".format(a,j))
+						else:
+							print("Period {} is free".format(a))
+						a=a+1
+
 subjects={"Chemistry":"Sadhvi Gautam","Physics":"Liji Davis","Maths":"Vipin Kumar","CS":"Halina Gupta","English":"Sudhi Bhatia"}
 teacherAttendence={"Sadhvi Gautam":0,"Liji Davis":0,"Vipin Kumar":0,"Halina Gupta":0,"Sudhi Bhatia":0}
-
-CSG={"Monday":[1,1,0,0,1,1,0,0],"Tuesday":[0,0,1,1,1,1,0,0],"Wednesday":[1,1,1,1,0,0,1,1],"Thursday":[1,1,0,0,1,1,1,1],"Friday":[0,0,1,1,1,1,0,0]}
-PLD={"Monday":[1,1,1,1,0,0,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,0,0,1,1,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[0,0,0,0,1,1,1,1]}
-MVK={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[0,0,1,1,0,0,1,1],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[1,1,0,0,1,1,1,1]}
-CSHG={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[1,1,0,0,1,1,0,0],"Wednesday":[0,0,1,1,0,0,1,1],"Thursday":[1,1,0,0,0,0,1,1],"Friday":[1,1,1,1,1,1,0,0]}
-ESB={"Monday":[1,1,0,0,1,1,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[0,0,1,1,0,0,1,1],"Friday":[0,0,1,1,0,0,1,1]}
+teacherCode={"Sadhvi Gautam":"CSG","Liji Davis":"PLD","Vipin Kumar":"MVK","Halina Gupta":"CSHG","Sudhi Bhatia":"ESB"}
 
 print()
 print(">>> School Management System <<<")
@@ -128,6 +183,10 @@ while True:
 			print()
 			checkTeacherStatus(name)
 			print()
+		elif tin=="5":
+			name=input("Enter name:")
+			showTimetable(name)
+			print()
 		elif tin=="7":
 			print("Terminating program")
 			time.sleep(3)
@@ -156,6 +215,10 @@ while True:
 			name=input("Enter name: ")
 			print()
 			checkTeacherStatus(name)
+			print()
+		elif tin=="5":
+			name=input("Enter name: ")
+			showTimetable(name)
 			print()
 		elif tin=="7":
 			print("Terminating program")
