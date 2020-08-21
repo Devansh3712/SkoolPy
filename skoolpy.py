@@ -90,12 +90,12 @@ def showTimetable(name):
 	if name in teacherCode:
 		a=teacherCode[name]
 		if a=="CSG":
-			CSG={"Monday":[1,1,0,0,1,1,0,0],"Tuesday":[0,0,1,1,1,1,0,0],"Wednesday":[1,1,1,1,0,0,1,1],"Thursday":[1,1,0,0,1,1,1,1],"Friday":[0,0,1,1,1,1,0,0]}
+			CSG={"Monday":['12-B','12-B',0,0,'12-C','12-C',0,0],"Tuesday":[0,0,'12-C','12-C','12-A','12-A',0,0],"Wednesday":['12-C','12-C','12-A','12-A',0,0,'12-B','12-B'],"Thursday":['12-B','12-B',0,0,'12-A','12-A','12-C','12-C'],"Friday":[0,0,'12-A','12-A','12-B','12-B',0,0]}
 			for i in CSG:
 				if i==datetime.now().strftime("%A"):
 					a=1
 					for j in CSG[i]:
-						if j==1:
+						if j!=0:
 							print("Period {} in class {}".format(a,j))
 						else:
 							print("Period {} is free".format(a))
@@ -106,7 +106,7 @@ def showTimetable(name):
 				if i==datetime.now().strftime("%A"):
 					a=1
 					for j in PLD[i]:
-						if j==1:
+						if j!=0:
 							print("Period {} in class {}".format(a,j))
 						else:
 							print("Period {} is free".format(a))
@@ -117,7 +117,7 @@ def showTimetable(name):
 				if i==datetime.now().strftime("%A"):
 					a=1
 					for j in MVK[i]:
-						if j==1:
+						if j!=0:
 							print("Period {} in class {}".format(a,j))
 						else:
 							print("Period {} is free".format(a))
@@ -128,7 +128,7 @@ def showTimetable(name):
 				if i==datetime.now().strftime("%A"):
 					a=1
 					for j in CSHG[i]:
-						if j==1:
+						if j!=0:
 							print("Period {} in class {}".format(a,j))
 						else:
 							print("Period {} is free".format(a))
@@ -139,11 +139,15 @@ def showTimetable(name):
 				if i==datetime.now().strftime("%A"):
 					a=1
 					for j in ESB[i]:
-						if j==1:
+						if j!=0:
 							print("Period {} in class {}".format(a,j))
 						else:
 							print("Period {} is free".format(a))
 						a=a+1
+		else:
+			print("Name not found in record, try capitalizing initials of your name")
+	else:
+		print("Name not found in record, try capitalizing initials of your name")
 
 subjects={"Chemistry":"Sadhvi Gautam","Physics":"Liji Davis","Maths":"Vipin Kumar","CS":"Halina Gupta","English":"Sudhi Bhatia"}
 teacherAttendence={"Sadhvi Gautam":0,"Liji Davis":0,"Vipin Kumar":0,"Halina Gupta":0,"Sudhi Bhatia":0}
