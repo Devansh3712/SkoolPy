@@ -98,17 +98,17 @@ print()
 print(">>> School Management System <<<")
 print()
 print(">>> "+datetime.now().strftime("%B %d, %Y %H:%M:%S")+" <<<")
+print()
+print("1. Add your attendence")
+print("2. Show today's current attendence")
+print("3. Mark a teacher on leave")
+print("4. Show a teacher's status")
+print("5. Show a teacher's timetable")
+print("6. Add subsitution")
+print("7. Exit")
+print()
 
 while True:
-	print()
-	print("1. Add your attendence")
-	print("2. Show today's current attendence")
-	print("3. Mark a teacher on leave")
-	print("4. Show a teacher's status")
-	print("5. Show a teacher's timetable")
-	print("6. Add subsitution")
-	print("7. Exit")
-	print()
 	tin=input("Type the option to proceed: ")
 	print()
 	if datetime.now().strftime("%H:%M")=="12:00":
@@ -116,38 +116,51 @@ while True:
 	elif int(datetime.now().strftime("%H%M"))>1200:
 		if tin=="1":
 			print("Cannot mark attendence after 12:00")
+			print()
 		elif tin=="2":
 			showCurrentAtt()
+			print()
 		elif tin=="3":
 			print("Cannot mark on leave after 12:00")
+			print()
 		elif tin=="4":
 			name=input("Enter name: ")
 			print()
 			checkTeacherStatus(name)
+			print()
 		elif tin=="7":
 			print("Terminating program")
+			time.sleep(3)
 			break
 		else:
 			print("Enter a valid option from 1 to 7")
+			print()
 	elif int(datetime.now().strftime("%H%M"))<600:
 		print("Attendence and other status cannot be shown now, try after 6:00 AM")
+		print()
 	else:
 		if tin=="1":
 			name=input("Enter name: ")
 			print()
 			attendence(name)
+			print()
 		elif tin=="2":
 			showCurrentAtt()
+			print()
 		elif tin=="3":
 			name=input("Enter name: ")
 			print()
 			onLeave(name)
+			print()
 		elif tin=="4":
 			name=input("Enter name: ")
 			print()
 			checkTeacherStatus(name)
+			print()
 		elif tin=="7":
 			print("Terminating program")
+			time.sleep(3)
 			break
 		else:
 			print("Enter a valid option from 1 to 7")
+			print()
