@@ -19,8 +19,6 @@ git clone https://github.com/Devansh3712/SkoolPy.git
 ```shell
 $ git clone https://github.com/Devansh3712/SkoolPy.git
 ```
-
- ---
  
 ### Setup
 - In order to run the program, the modules mentioned in requirements.txt must be there. In order to install these modules, follow the steps:
@@ -47,3 +45,6 @@ $ python3 skoolpy-gui.py
 ```
 
 ---
+
+# License
+MIT License
