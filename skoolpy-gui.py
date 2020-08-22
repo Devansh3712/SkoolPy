@@ -60,6 +60,7 @@ def attendence():
 			textbox.insert(INSERT,"{} marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
 	else:
 		textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+	att.set("")
 
 def onLeave():
 	textbox.delete(1.0,"end")
@@ -69,7 +70,7 @@ def onLeave():
 			new=Toplevel(root)
 			new.title("SkoolPy")
 			new.resizable(False,False)
-			isPresent=name+' is marked as present, do you want to mark it on leave? \'Y\' for yes, \'N\' for no'
+			isPresent=name+' is marked as present, do you want to mark it on leave?\n \'Y\' for yes, \'N\' for no'
 			ans=StringVar(new)
 			def test():
 				if ans.get()=="Y":
@@ -90,7 +91,7 @@ def onLeave():
 			new=Toplevel(root)
 			new.title("SkoolPy")
 			new.resizable(False,False)
-			isPresent=name+' is marked as on half day, do you want to mark it as on leave? \'Y\' for yes, \'N\' for no'
+			isPresent=name+' is marked as on half day, do you want to mark it as on leave?\n \'Y\' for yes, \'N\' for no'
 			ans=StringVar(new)
 			def test():
 				if ans.get()=="Y":
@@ -110,56 +111,100 @@ def onLeave():
 			textbox.insert(INSERT,"{} marked on leave at {}".format(name,datetime.now().strftime("%H:%M:%S")))
 	else:
 		textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+	leave.set("")
 
 def onHalfDay():
+	textbox.delete(1.0,"end")
 	name=str(half.get())
 	if int(datetime.now().strftime("%H%M"))>=1200:
 		if name in subjects.values():
 			if teacherAttendence[name]==1:
-				print("{} was marked present previously, do you want to mark it on half day?".format(name))
-				cin=input("Y/N : ")
-				while True:
-					if cin.lower()=="y":
+				new=Toplevel(root)
+				new.title("SkoolPy")
+				new.resizable(False,False)
+				isPresent=name+' is marked as present, do you want to mark it as on half day?\n \'Y\' for yes, \'N\' for no'
+				ans=StringVar(new)
+				def test():
+					if ans.get()=="Y":
 						teacherAttendence[name]=3
-						print("{} is now marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
-					elif cin.lower()=="n":
-						print("{} is marked present".format(name))
+						textbox.insert(INSERT,"{} is now marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+					elif ans.get()=="N":
+						textbox.insert(INSERT,"{} is marked as present".format(name))
 					else:
-						print("Enter Y for \'yes\' and n for \'no\'")
+						textbox.insert(INSERT,"Invalid Option")
+					new.destroy()
+				newLabel1=Label(new,text=str(isPresent))
+				newEntry1=Entry(new,textvariable=ans)
+				newButton1=Button(new,text="Enter",command=test)
+				newLabel1.grid(row=0,column=0,sticky=W)
+				newEntry1.grid(row=0,column=1)
+				newButton1.grid(row=1,columnspan=2)
 			elif teacherAttendence[name]==2:
-				print("{} is marked as on leave, do you want to mark it as on half day?".format(name))
-				cin=input("Y/N : ")
-				while True:
-					if cin.lower()=="y":
+				new=Toplevel(root)
+				new.title("SkoolPy")
+				new.resizable(False,False)
+				isPresent=name+' is marked on leave, do you want to mark it as on half day?\n \'Y\' for yes, \'N\' for no'
+				ans=StringVar(new)
+				def test():
+					if ans.get()=="Y":
 						teacherAttendence[name]=3
-						print("{} is now marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
-						break
-					elif cin.lower()=="n":
-						print("{} is marked on leave".format(name))
-						break
+						textbox.insert(INSERT,"{} is now marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+					elif ans.get()=="N":
+						textbox.insert(INSERT,"{} is marked on leave".format(name))
 					else:
-						print("Enter Y for \'yes\' and N for \'no\'")
+						textbox.insert(INSERT,"Invalid Option")
+					new.destroy()
+				newLabel1=Label(new,text=str(isPresent))
+				newEntry1=Entry(new,textvariable=ans)
+				newButton1=Button(new,text="Enter",command=test)
+				newLabel1.grid(row=0,column=0,sticky=W)
+				newEntry1.grid(row=0,column=1)
+				newButton1.grid(row=1,columnspan=2)
 			else:
 				teacherAttendence[name]=3
-				print("{} marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+				textbox.insert(INSERT,"{} marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
 		else:
-			print("Name not found in record, try capitalizing initials of your name")
+			textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
 	else:
-		print("Cannot mark on half day before 12:00 PM")
+		textbox.insert(INSERT,"Cannot mark on half day before 12:00 PM")
+	half.set("")
+
+def showCurrentAtt():
+	textbox.delete(1.0,"end")
+	for i in teacherAttendence:
+		if teacherAttendence[i]==1:
+			c="Present"
+		elif teacherAttendence[i]==2:
+			c="On Leave"
+		elif teacherAttendence[i]==3:
+			c="On Half Day"
+		else:
+			c="Absent"
+		textbox.insert(INSERT,"{} is {}\n".format(i,c))
 
 att=StringVar(root)
 leave=StringVar(root)
 half=StringVar(root)
 
-textbox=Text(root)
-label1=Label(root,text="Amity International School")
+textbox=Text(root,height=20,width=50)
+label1=Label(root,text="AMITY INTERNATIONAL SCHOOL")
 label2=Label(root)
-label3=Label(root,text="1. Add your attendence:")
+space=Label(root,text=" ")
+
+label3=Label(root,text="1. Add your attendence: ")
 entry1=Entry(root,textvariable=att)
 button1=Button(root,text="Mark",command=attendence)
-label4=Label(root,text="2. Mark a teacher on leave:")
+
+label4=Label(root,text="2. Mark a teacher on leave: ")
 entry2=Entry(root,textvariable=leave)
 button2=Button(root,text="Mark",command=onLeave)
+
+label5=Label(root,text="3. Mark a teacher on half day: ")
+entry3=Entry(root,textvariable=half)
+button3=Button(root,text="Mark",command=onHalfDay)
+
+label6=Label(root,text="4. Show current attendence")
+button4=Button(root,text="Show",command=showCurrentAtt)
 
 t=''
 def timer():
@@ -173,11 +218,22 @@ timer()
 
 label1.grid(row=0,columnspan=8)
 label2.grid(row=1,columnspan=8)
-label3.grid(row=2,column=0)
-entry1.grid(row=2,column=1)
-button1.grid(row=2,column=2)
-textbox.grid(row=2,column=3,rowspan=10,columnspan=5)
-label4.grid(row=3,column=0)
-entry2.grid(row=3,column=1)
-button2.grid(row=3,column=2)
+space.grid(row=2,columnspan=8)
+textbox.grid(row=3,column=3,rowspan=10,columnspan=5)
+
+label3.grid(row=3,column=0,sticky=W)
+entry1.grid(row=3,column=1)
+button1.grid(row=3,column=2)
+
+label4.grid(row=4,column=0,sticky=W)
+entry2.grid(row=4,column=1)
+button2.grid(row=4,column=2)
+
+label5.grid(row=5,column=0,sticky=W)
+entry3.grid(row=5,column=1)
+button3.grid(row=5,column=2)
+
+label6.grid(row=6,column=0,sticky=W)
+button4.grid(row=6,column=1,sticky=W+E)
+
 mainloop()
