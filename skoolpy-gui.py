@@ -3,6 +3,7 @@ from tkinter.ttk import *
 from datetime import *
 import getpass
 import time
+import webbrowser
 
 root=Tk()
 root.title("SkoolPy")
@@ -232,6 +233,25 @@ def quitSP():
 	newButton1.grid(row=1,columnspan=2)
 	textbox.config(state='disabled')
 
+def showInf():
+	new=Toplevel(root)
+	new.title("Information")
+	new.resizable(False,False)
+	def openWeb():
+		new=1
+		url="https://github.com/Devansh3712/SkoolPy"
+		webbrowser.open(url,new=new)
+	newLabel1=Label(new,text="SkoolPy v1.0")
+	newLabel2=Label(new,text="Made by Devansh")
+	newLabel3=Label(new,text="View project on Github:")
+	emptyLabel=Label(new,text="")
+	newButton1=Button(new,text="Visit",command=openWeb)
+	newLabel1.grid(row=0,columnspan=2)
+	newLabel2.grid(row=1,columnspan=2)
+	emptyLabel.grid(row=2)
+	newLabel3.grid(row=3,column=0)
+	newButton1.grid(row=3,column=1)
+
 att=StringVar(root)
 leave=StringVar(root)
 half=StringVar(root)
@@ -257,6 +277,7 @@ label6=Label(root,text="4. Show current attendence")
 button4=Button(root,text="Show",command=showCurrentAtt)
 
 quitButton=Button(root,text="Quit",command=quitSP)
+showInfo=Button(root,text="Info",command=showInf)
 
 t=''
 def timer():
@@ -289,5 +310,6 @@ label6.grid(row=6,column=0,sticky=W)
 button4.grid(row=6,column=1,sticky=W+E)
 
 quitButton.grid(row=14,column=7,columnspan=2)
+showInfo.grid(row=14,sticky=W)
 
 mainloop()
