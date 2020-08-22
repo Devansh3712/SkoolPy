@@ -1,5 +1,6 @@
 import time
 from datetime import datetime
+import getpass
 
 def attendence(name):
 	if name in subjects.values():
@@ -17,7 +18,20 @@ def attendence(name):
 					print("{} is marked on leave".format(name))
 					break
 				else:
-					print("Enter Y for yes and N for no")
+					print("Enter Y for \'yes\' and N for \'no\'")
+		elif teacherAttendence[name]==3:
+			print("{} is marked as on half day, do you want to mark it as present?".format(name))
+			cin=input("Y/N : ")
+			while True:
+				if cin.lower()=="y":
+					teacherAttendence[name]=1
+					print("{} is now marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+					break
+				elif cin.lower()=="n":
+					print("{} is marked on half day".format(name))
+					break
+				else:
+					print("Enter Y for \'yes\' and N for \'no\'")
 		else:
 			teacherAttendence[name]=1
 			print("{} marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
@@ -38,14 +52,62 @@ def onLeave(name):
 					print("{} is marked present".format(name))
 					break
 				else:
-					print("Enter Y for yes and N for no")
+					print("Enter Y for \'yes\' and N for \'no\'")
 		elif teacherAttendence[name]==2:
 			print("{} is already marked on leave".format(name))
+		elif teacherAttendence[name]==3:
+			print("{} is marked as on half day, do you want to mark it on leave?".format(name))
+			cin=input("Y/N : ")
+			while True:
+				if cin.lower()=="y":
+					teacherAttendence[name]=2
+					print("{} is now marked on leave at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+					break
+				elif cin.lower()=="n":
+					print("{} is marked on half day".format(name))
+					break
+				else:
+					print("Enter Y for \'yes\' and N for \'no\'")
 		else:
 			teacherAttendence[name]=2
 			print("{} marked on leave at {}".format(name,datetime.now().strftime("%H:%M:%S")))
 	else:
 		print("Name not found in record, try capitalizing initials of your name")
+
+def onHalfDay(name):
+	if int(datetime.now().strftime("%H%M"))>=1200:
+		if name in subjects.values():
+			if teacherAttendence[name]==1:
+				print("{} was marked present previously, do you want to mark it on half day?".format(name))
+				cin=input("Y/N : ")
+				while True:
+					if cin.lower()=="y":
+						teacherAttendence[name]=3
+						print("{} is now marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+					elif cin.lower()=="n":
+						print("{} is marked present".format(name))
+					else:
+						print("Enter Y for \'yes\' and n for \'no\'")
+			elif teacherAttendence[name]==2:
+				print("{} is marked as on leave, do you want to mark it as on half day?".format(name))
+				cin=input("Y/N : ")
+				while True:
+					if cin.lower()=="y":
+						teacherAttendence[name]=3
+						print("{} is now marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+						break
+					elif cin.lower()=="n":
+						print("{} is marked on leave".format(name))
+						break
+					else:
+						print("Enter Y for \'yes\' and N for \'no\'")
+			else:
+				teacherAttendence[name]=3
+				print("{} marked on half day at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+		else:
+			print("Name not found in record, try capitalizing initials of your name")
+	else:
+		print("Cannot mark on half day before 12:00 PM")
 
 def showCurrentAtt():
 	for i in teacherAttendence:
@@ -53,6 +115,8 @@ def showCurrentAtt():
 			c="Present"
 		elif teacherAttendence[i]==2:
 			c="On Leave"
+		elif teacherAttendence[i]==3:
+			c="On Half Day"
 		else:
 			c="Absent"
 		print("{} is {}".format(i,c))
@@ -67,6 +131,8 @@ def checkTeacherStatus(name):
 					print("{} is present".format(name))
 				elif teacherAttendence[i]==2:
 					print("{} is on leave".format(name))
+				elif teacherAttendence[i]==3:
+					print("{} is on half day".format(name))
 				else:
 					print("{} is Absent".format(name))
 	else:
@@ -80,6 +146,8 @@ def writeAttendence():
 			f.write("{} is present".format(i))
 		elif teacherAttendence[i]==2:
 			f.write("{} is on leave".format(i))
+		elif teacherAttendence[i]==3:
+			f.write("{} is on half day".format(i))
 		else:
 			f.write("{} is absent".format(i))
 		f.write("\n")
@@ -159,12 +227,13 @@ print()
 print(">>> "+datetime.now().strftime("%B %d, %Y %H:%M:%S")+" <<<")
 print()
 print("1. Add your attendence")
-print("2. Show today's current attendence")
-print("3. Mark a teacher on leave")
-print("4. Show a teacher's status")
-print("5. Show a teacher's timetable")
-print("6. Add subsitution")
-print("7. Exit")
+print("2. Mark a teacher on leave")
+print("3. Mark a teacher on half day")
+print("4. Show today's current attendence")
+print("5. Show a teacher's status")
+print("6. Show a teacher's timetable")
+print("7. Add subsitution")
+print("8. Exit")
 print()
 
 while True:
@@ -174,27 +243,38 @@ while True:
 		writeAttendence()
 	elif int(datetime.now().strftime("%H%M"))>1200:
 		if tin=="1":
-			print("Cannot mark attendence after 12:00")
-			print()
-		elif tin=="2":
-			showCurrentAtt()
-			print()
-		elif tin=="3":
-			print("Cannot mark on leave after 12:00")
+			print("Cannot mark attendence after 12:00 PM")
 			print()
 		elif tin=="4":
+			showCurrentAtt()
+			print()
+		elif tin=="2":
+			print("Cannot mark on leave after 12:00 PM")
+			print()
+		elif tin=="3":
+			name=input("Enter name: ")
+			print()
+			onHalfDay(name)
+			print()
+		elif tin=="5":
 			name=input("Enter name: ")
 			print()
 			checkTeacherStatus(name)
 			print()
-		elif tin=="5":
+		elif tin=="6":
 			name=input("Enter name:")
 			showTimetable(name)
 			print()
-		elif tin=="7":
-			print("Terminating program")
-			time.sleep(3)
-			break
+		elif tin=="8":
+			passwd=getpass.getpass(prompt="Enter Password: ")
+			print()
+			if passwd=="amity@123":
+				print("Terminating program")
+				time.sleep(3)
+				break
+			else:
+				print("Password incorrect, access denied")
+				print()
 		else:
 			print("Enter a valid option from 1 to 7")
 			print()
@@ -207,27 +287,38 @@ while True:
 			print()
 			attendence(name)
 			print()
-		elif tin=="2":
+		elif tin=="4":
 			showCurrentAtt()
 			print()
-		elif tin=="3":
+		elif tin=="2":
 			name=input("Enter name: ")
 			print()
 			onLeave(name)
 			print()
-		elif tin=="4":
+		elif tin=="3":
+			name=input("Enter name: ")
+			print()
+			onHalfDay(name)
+			print()
+		elif tin=="5":
 			name=input("Enter name: ")
 			print()
 			checkTeacherStatus(name)
 			print()
-		elif tin=="5":
+		elif tin=="6":
 			name=input("Enter name: ")
 			showTimetable(name)
 			print()
-		elif tin=="7":
-			print("Terminating program")
-			time.sleep(3)
-			break
+		elif tin=="8":
+			passwd=getpass.getpass(prompt="Enter Password: ")
+			print()
+			if passwd=="amity@123":
+				print("Terminating program")
+				time.sleep(3)
+				break
+			else:
+				print("Password incorrect, access denied")
+				print()
 		else:
-			print("Enter a valid option from 1 to 7")
+			print("Enter a valid option from 1 to 8")
 			print()
