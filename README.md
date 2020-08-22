@@ -33,7 +33,7 @@ $ python3 -m pip3 install -r requirements.txt
 
 ---
 
-# Usage
+## Usage
 - Now, run the pycrypt.py file
 > Windows
 ```bash
@@ -46,5 +46,5 @@ $ python3 skoolpy-gui.py
 
 ---
 
-# License
+## License
 MIT License
