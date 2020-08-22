@@ -272,9 +272,31 @@ def exportData():
 		messagebox.showinfo("Export", "Attendence exported succesfully in current directory")
 	showMessage()
 
+def checkTeacherStatus():
+	textbox.config(state='normal')
+	textbox.delete(1.0,"end")
+	name=str(stat.get())
+	if name in teacherAttendence:
+		for i in teacherAttendence:
+			if i==name:
+				textbox.insert(INSERT,"{} teaches {}\n".format(name,list(subjects.keys())[list(subjects.values()).index(i)]))
+				if teacherAttendence[i]==1:
+					textbox.insert(INSERT,"{} is present".format(name))
+				elif teacherAttendence[i]==2:
+					textbox.insert(INSERT,"{} is on leave".format(name))
+				elif teacherAttendence[i]==3:
+					textbox.insert(INSERT,"{} is on half day".format(name))
+				else:
+					textbox.insert(INSERT,"{} is Absent".format(name))
+	else:
+		text.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+	stat.set("")
+	textbox.config(state='disabled')
+
 att=StringVar(root)
 leave=StringVar(root)
 half=StringVar(root)
+stat=StringVar(root)
 
 textbox=Text(root,height=20,width=50)
 label1=Label(root,text="AMITY INTERNATIONAL SCHOOL")
@@ -293,10 +315,14 @@ label5=Label(root,text="3. Mark a teacher on half day: ")
 entry3=Entry(root,textvariable=half)
 button3=Button(root,text="Mark",command=onHalfDay)
 
-label6=Label(root,text="4. Show current attendence")
+label8=Label(root,text="4. Check a teacher's status: ")
+entry4=Entry(root,textvariable=stat)
+button6=Button(root,text="Check",command=checkTeacherStatus)
+
+label6=Label(root,text="5. Show current attendence")
 button4=Button(root,text="Show",command=showCurrentAtt)
 
-label7=Label(root,text="5. Export today's attendence")
+label7=Label(root,text="6. Export today's attendence")
 button5=Button(root,text="Export",command=exportData)
 
 quitButton=Button(root,text="Quit",command=quitSP)
@@ -350,11 +376,15 @@ label5.grid(row=5,column=0,sticky=W)
 entry3.grid(row=5,column=1)
 button3.grid(row=5,column=2)
 
-label6.grid(row=6,column=0,sticky=W)
-button4.grid(row=6,column=1,sticky=W+E)
+label8.grid(row=6,column=0,sticky=W)
+entry4.grid(row=6,column=1)
+button6.grid(row=6,column=2)
 
-label7.grid(row=7,column=0,sticky=W)
-button5.grid(row=7,column=1,sticky=W+E)
+label6.grid(row=7,column=0,sticky=W)
+button4.grid(row=7,column=1,sticky=W+E)
+
+label7.grid(row=8,column=0,sticky=W)
+button5.grid(row=8,column=1,sticky=W+E)
 
 quitButton.grid(row=14,column=7,columnspan=2)
 showInfo.grid(row=14,sticky=W)
