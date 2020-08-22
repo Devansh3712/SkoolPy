@@ -225,7 +225,7 @@ def quitSP():
 			textbox.insert(INSERT,"Password incorrect, access denied")
 			textbox.config(state='disabled')
 	newLabel1=Label(new,text="Enter Password: ")
-	newEntry1=Entry(new,textvariable=passwd,show="*")
+	newEntry1=Entry(new,textvariable=passwd,show="")
 	newButton1=Button(new,text="Enter",command=checkPass)
 	newLabel1.grid(row=0,column=0,sticky=W)
 	newEntry1.grid(row=0,column=1)
