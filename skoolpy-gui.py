@@ -389,4 +389,5 @@ button5.grid(row=8,column=1,sticky=W+E)
 quitButton.grid(row=14,column=7,columnspan=2)
 showInfo.grid(row=14,sticky=W)
 
+root.protocol("WM_DELETE_WINDOW",quitSP)
 mainloop()
