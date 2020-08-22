@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from tkinter.ttk import *
 from datetime import *
 import getpass
@@ -253,6 +254,24 @@ def showInf():
 	newLabel3.grid(row=3,column=0)
 	newButton1.grid(row=3,column=1)
 
+def exportData():
+	teacherAtt=datetime.now().strftime("%B%d%Y")+'.txt'
+	f=open(teacherAtt,'w')
+	for i in teacherAttendence:
+		if teacherAttendence[i]==1:
+			f.write("{} is present".format(i))
+		elif teacherAttendence[i]==2:
+			f.write("{} is on leave".format(i))
+		elif teacherAttendence[i]==3:
+			f.write("{} is on half day".format(i))
+		else:
+			f.write("{} is absent".format(i))
+		f.write("\n")
+	f.close()
+	def showMessage():
+		messagebox.showinfo("Export", "Attendence exported succesfully in current directory")
+	showMessage()
+
 att=StringVar(root)
 leave=StringVar(root)
 half=StringVar(root)
@@ -276,6 +295,9 @@ button3=Button(root,text="Mark",command=onHalfDay)
 
 label6=Label(root,text="4. Show current attendence")
 button4=Button(root,text="Show",command=showCurrentAtt)
+
+label7=Label(root,text="5. Export today's attendence")
+button5=Button(root,text="Export",command=exportData)
 
 quitButton=Button(root,text="Quit",command=quitSP)
 showInfo=Button(root,text="Info",command=showInf)
@@ -330,6 +352,9 @@ button3.grid(row=5,column=2)
 
 label6.grid(row=6,column=0,sticky=W)
 button4.grid(row=6,column=1,sticky=W+E)
+
+label7.grid(row=7,column=0,sticky=W)
+button5.grid(row=7,column=1,sticky=W+E)
 
 quitButton.grid(row=14,column=7,columnspan=2)
 showInfo.grid(row=14,sticky=W)
