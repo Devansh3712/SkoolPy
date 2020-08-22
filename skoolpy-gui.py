@@ -213,6 +213,7 @@ def showCurrentAtt():
 
 def quitSP():
 	textbox.config(state='normal')
+	textbox.delete(1.0,"end")
 	new=Toplevel(root)
 	new.title("Quit")
 	new.resizable(False,False)
@@ -288,6 +289,27 @@ def timer():
 		label2.config(text=t2)
 	label2.after(200,timer)
 timer()
+
+asciiArt='''
+   _____ _               _ _____       
+  / ____| |             | |  __ \      
+ | (___ | | _____   ___ | | |__) |   _ 
+  \___ \| |/ / _ \ / _ \| |  ___/ | | |
+  ____) |   < (_) | (_) | | |   | |_| |
+ |_____/|_|\_\___/ \___/|_|_|    \__, |
+                                  __/ |
+                                 |___/ 
+                                 
+ A School Management System GUI made
+ using python and tkinter.
+
+ SkoolPy is an open-source software
+ and is free to use. 
+
+ Copyright © Devansh Singh
+                                 '''
+textbox.insert(INSERT,asciiArt)
+textbox.config(state="disabled")
 
 label1.grid(row=0,columnspan=8)
 label2.grid(row=1,columnspan=8)
