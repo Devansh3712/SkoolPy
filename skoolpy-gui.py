@@ -12,6 +12,7 @@ root.resizable(False,False)
 
 subjects={"Chemistry":"Sadhvi Gautam","Physics":"Liji Davis","Maths":"Vipin Kumar","CS":"Halina Gupta","English":"Sudhi Bhatia"}
 teacherAttendence={"Sadhvi Gautam":0,"Liji Davis":0,"Vipin Kumar":0,"Halina Gupta":0,"Sudhi Bhatia":0}
+teacherCode={"Sadhvi Gautam":"CSG","Liji Davis":"PLD","Vipin Kumar":"MVK","Halina Gupta":"CSHG","Sudhi Bhatia":"ESB"}
 
 def attendence():
 	textbox.config(state='normal')
@@ -293,10 +294,94 @@ def checkTeacherStatus():
 	stat.set("")
 	textbox.config(state='disabled')
 
+def showTimetable():
+	textbox.config(state='normal')
+	textbox.delete(1.0,"end")
+	name=str(tt.get())
+	if name in teacherCode:
+		a=teacherCode[name]
+		if a=="CSG":
+			CSG={"Monday":['12-B','12-B',0,0,'12-C','12-C',0,0],"Tuesday":[0,0,'12-C','12-C','12-A','12-A',0,0],"Wednesday":['12-C','12-C','12-A','12-A',0,0,'12-B','12-B'],"Thursday":['12-B','12-B',0,0,'12-A','12-A','12-C','12-C'],"Friday":[0,0,'12-A','12-A','12-B','12-B',0,0]}
+			for i in CSG:
+				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
+					a=1
+					for j in CSG[i]:
+						if j!=0:
+							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
+						else:
+							textbox.insert(INSERT,"Period {} is free\n".format(a))
+						a=a+1
+				else:
+					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
+					break
+		elif a=="PLD":
+			PLD={"Monday":[1,1,1,1,0,0,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,0,0,1,1,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[0,0,0,0,1,1,1,1]}
+			for i in PLD:
+				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
+					a=1
+					for j in PLD[i]:
+						if j!=0:
+							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
+						else:
+							textbox.insert(INSERT,"Period {} is free\n".format(a))
+						a=a+1
+				else:
+					print("Today is a weekend, timetable not available\n")
+					break
+		elif a=="MVK":
+			MVK={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[0,0,1,1,0,0,1,1],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[1,1,0,0,1,1,1,1]}
+			for i in MVK:
+				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
+					a=1
+					for j in MVK[i]:
+						if j!=0:
+							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
+						else:
+							textbox.insert(INSERT,"Period {} is free\n".format(a))
+						a=a+1
+				else:
+					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
+					break
+		elif a=="CSHG":
+			CSHG={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[1,1,0,0,1,1,0,0],"Wednesday":[0,0,1,1,0,0,1,1],"Thursday":[1,1,0,0,0,0,1,1],"Friday":[1,1,1,1,1,1,0,0]}
+			for i in CSHG:
+				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
+					a=1
+					for j in CSHG[i]:
+						if j!=0:
+							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
+						else:
+							textbox.insert(INSERT,"Period {} is free\n".format(a))
+						a=a+1
+				else:
+					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
+					break
+		elif a=="ESB":
+			ESB={"Monday":[1,1,0,0,1,1,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[0,0,1,1,0,0,1,1],"Friday":[0,0,1,1,0,0,1,1]}
+			for i in ESB:
+				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
+					a=1
+					for j in ESB[i]:
+						if j!=0:
+							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
+						else:
+							textbox.insert(INSERT,"Period {} is free\n".format(a))
+						a=a+1
+				else:
+					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
+					break
+		else:
+			textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name\n")
+	else:
+		textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name\n")
+	tt.set("")
+	textbox.config(state='disabled')
+
 att=StringVar(root)
 leave=StringVar(root)
 half=StringVar(root)
 stat=StringVar(root)
+tt=StringVar(root)
 
 textbox=Text(root,height=20,width=50)
 label1=Label(root,text="AMITY INTERNATIONAL SCHOOL")
@@ -319,10 +404,14 @@ label8=Label(root,text="4. Check a teacher's status: ")
 entry4=Entry(root,textvariable=stat)
 button6=Button(root,text="Check",command=checkTeacherStatus)
 
-label6=Label(root,text="5. Show current attendence")
+label9=Label(root,text="5. Check a teacher's timetable: ")
+entry5=Entry(root,textvariable=tt)
+button7=Button(root,text="Check",command=showTimetable)
+
+label6=Label(root,text="6. Show current attendence")
 button4=Button(root,text="Show",command=showCurrentAtt)
 
-label7=Label(root,text="6. Export today's attendence")
+label7=Label(root,text="7. Export today's attendence")
 button5=Button(root,text="Export",command=exportData)
 
 quitButton=Button(root,text="Quit",command=quitSP)
@@ -380,11 +469,15 @@ label8.grid(row=6,column=0,sticky=W)
 entry4.grid(row=6,column=1)
 button6.grid(row=6,column=2)
 
-label6.grid(row=7,column=0,sticky=W)
-button4.grid(row=7,column=1,sticky=W+E)
+label9.grid(row=7,column=0,sticky=W)
+entry5.grid(row=7,column=1)
+button7.grid(row=7,column=2)
 
-label7.grid(row=8,column=0,sticky=W)
-button5.grid(row=8,column=1,sticky=W+E)
+label6.grid(row=8,column=0,sticky=W)
+button4.grid(row=8,column=1,sticky=W+E)
+
+label7.grid(row=9,column=0,sticky=W)
+button5.grid(row=9,column=1,sticky=W+E)
 
 quitButton.grid(row=14,column=7,columnspan=2)
 showInfo.grid(row=14,sticky=W)
