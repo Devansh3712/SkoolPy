@@ -48,5 +48,17 @@ $ python3 skoolpy-[cli/gui].py
 
 ---
 
+## Screenshots
+
+- Command Line Interface (CLI)
+
+![cli](https://user-images.githubusercontent.com/58616444/91023899-c52cbf80-e614-11ea-8deb-bbe8f25438d8.png)
+
+- Graphical User Interface (GUI)
+
+![gui](https://user-images.githubusercontent.com/58616444/91023916-c8c04680-e614-11ea-9bdd-f6211d681b44.png)
+
+---
+
 ## License
 MIT License
