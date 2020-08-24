@@ -1,5 +1,5 @@
 # SkoolPy
-SkoolPy is a school management system program made using python.
+SkoolPy is a school management system program made using python, available as a Command Line Interface (CLI) and a Graphical User Interface (GUI).
 
 ![Python](https://img.shields.io/badge/-Python-000000?style=flat&logo=python)
 [![Version](https://badge.fury.io/gh/tterb%2FHyde.svg)](https://badge.fury.io/gh/tterb%2FHyde)
@@ -20,6 +20,7 @@ git clone https://github.com/Devansh3712/SkoolPy.git
 ```shell
 $ git clone https://github.com/Devansh3712/SkoolPy.git
 ```
+![x](https://user-images.githubusercontent.com/58616444/91022964-89452a80-e613-11ea-9abd-339316668921.gif)
  
 ### Setup
 - In order to run the program, the modules mentioned in requirements.txt must be there. In order to install these modules, follow the steps:
@@ -35,14 +36,14 @@ $ python3 -m pip3 install -r requirements.txt
 ---
 
 ## Usage
-- Now, run the pycrypt.py file
+- Now, run the skoolpy-[cli/gui].py file
 > Windows
 ```bash
-python skoolpy-gui.py
+python skoolpy-[cli/gui].py
 ```
 > Linux
 ```shell
-$ python3 skoolpy-gui.py
+$ python3 skoolpy-[cli/gui].py
 ```
 
 ---
