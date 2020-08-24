@@ -18,60 +18,119 @@ def attendence():
 	textbox.config(state='normal')
 	textbox.delete(1.0,"end")
 	name=str(att.get())
-	if name in subjects.values():
-		if teacherAttendence[name]==1:
-			textbox.insert(INSERT,"{} is already marked present".format(name))
-		elif teacherAttendence[name]==2:
-			new=Toplevel(root)
-			new.title("SkoolPy")
-			new.resizable(False,False)
-			isPresent=name+' is marked as on leave, do you want to mark it as present?\n \'Y\' for yes, \'N\' for no'
-			ans=StringVar(new)
-			def test():
-				textbox.config(state='normal')
-				if ans.get()=="Y":
-					teacherAttendence[name]=1
-					textbox.insert(INSERT,"{} is now marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
-				elif ans.get()=="N":
-					textbox.insert(INSERT,"{} is marked on leave".format(name))
+	if int(datetime.now().strftime("%H%M"))<=1200:
+		if int(datetime.now().strftime("%H%M"))<=800:
+			if name in subjects.values():
+				if teacherAttendence[name]==1:
+					textbox.insert(INSERT,"{} is already marked present".format(name))
+				elif teacherAttendence[name]==2:
+					new=Toplevel(root)
+					new.title("SkoolPy")
+					new.resizable(False,False)
+					isPresent=name+' is marked as on leave, do you want to mark it as present?\n \'Y\' for yes, \'N\' for no'
+					ans=StringVar(new)
+					def test():
+						textbox.config(state='normal')
+						if ans.get()=="Y":
+							teacherAttendence[name]=1
+							textbox.insert(INSERT,"{} is now marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+						elif ans.get()=="N":
+							textbox.insert(INSERT,"{} is marked on leave".format(name))
+						else:
+								textbox.insert(INSERT,"Invalid Option")
+						textbox.config(state='disabled')
+						new.destroy()
+					newLabel1=Label(new,text=str(isPresent))
+					newEntry1=Entry(new,textvariable=ans)
+					newButton1=Button(new,text="Enter",command=test)
+					newLabel1.grid(row=0,column=0,sticky=W)
+					newEntry1.grid(row=0,column=1)
+					newButton1.grid(row=1,columnspan=2)
+				elif teacherAttendence[name]==3:
+					new=Toplevel(root)
+					new.title("SkoolPy")
+					new.resizable(False,False)
+					isPresent=name+' is marked as on half day, do you want to mark it as present?\n \'Y\' for yes, \'N\' for no'
+					ans=StringVar(new)
+					def test():
+						textbox.config(state='normal')
+						if ans.get()=="Y":
+							teacherAttendence[name]=1
+							textbox.insert(INSERT,"{} is now marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+						elif ans.get()=="N":
+							textbox.insert(INSERT,"{} is marked on half day".format(name))
+						else:
+								textbox.insert(INSERT,"Invalid Option")
+						textbox.config(state='disabled')
+						new.destroy()
+					newLabel1=Label(new,text=str(isPresent))
+					newEntry1=Entry(new,textvariable=ans)
+					newButton1=Button(new,text="Enter",command=test)
+					newLabel1.grid(row=0,column=0,sticky=W)
+					newEntry1.grid(row=0,column=1)
+					newButton1.grid(row=1,columnspan=2)
 				else:
-						textbox.insert(INSERT,"Invalid Option")
-				textbox.config(state='disabled')
-				new.destroy()
-			newLabel1=Label(new,text=str(isPresent))
-			newEntry1=Entry(new,textvariable=ans)
-			newButton1=Button(new,text="Enter",command=test)
-			newLabel1.grid(row=0,column=0,sticky=W)
-			newEntry1.grid(row=0,column=1)
-			newButton1.grid(row=1,columnspan=2)
-		elif teacherAttendence[name]==3:
-			new=Toplevel(root)
-			new.title("SkoolPy")
-			new.resizable(False,False)
-			isPresent=name+' is marked as on half day, do you want to mark it as present?\n \'Y\' for yes, \'N\' for no'
-			ans=StringVar(new)
-			def test():
-				textbox.config(state='normal')
-				if ans.get()=="Y":
 					teacherAttendence[name]=1
-					textbox.insert(INSERT,"{} is now marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
-				elif ans.get()=="N":
-					textbox.insert(INSERT,"{} is marked on half day".format(name))
+					textbox.insert(INSERT,"{} marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+		elif int(datetime.now().strftime("%H%M"))>800:
+			if name in subjects.values():
+				if teacherAttendence[name]==1:
+					textbox.insert(INSERT,"{} is already marked present".format(name))
+				elif teacherAttendence[name]==2:
+					new=Toplevel(root)
+					new.title("SkoolPy")
+					new.resizable(False,False)
+					isPresent=name+' is marked as on leave, do you want to mark it as present?\n \'Y\' for yes, \'N\' for no'
+					ans=StringVar(new)
+					def test():
+						textbox.config(state='normal')
+						if ans.get()=="Y":
+							teacherAttendence[name]=4
+							textbox.insert(INSERT,"{} is now marked present (late) at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+						elif ans.get()=="N":
+							textbox.insert(INSERT,"{} is marked on leave".format(name))
+						else:
+								textbox.insert(INSERT,"Invalid Option")
+						textbox.config(state='disabled')
+						new.destroy()
+					newLabel1=Label(new,text=str(isPresent))
+					newEntry1=Entry(new,textvariable=ans)
+					newButton1=Button(new,text="Enter",command=test)
+					newLabel1.grid(row=0,column=0,sticky=W)
+					newEntry1.grid(row=0,column=1)
+					newButton1.grid(row=1,columnspan=2)
+				elif teacherAttendence[name]==3:
+					new=Toplevel(root)
+					new.title("SkoolPy")
+					new.resizable(False,False)
+					isPresent=name+' is marked as on half day, do you want to mark it as present?\n \'Y\' for yes, \'N\' for no'
+					ans=StringVar(new)
+					def test():
+						textbox.config(state='normal')
+						if ans.get()=="Y":
+							teacherAttendence[name]=4
+							textbox.insert(INSERT,"{} is now marked present (late) at {}".format(name,datetime.now().strftime("%H:%M:%S")))
+						elif ans.get()=="N":
+							textbox.insert(INSERT,"{} is marked on half day".format(name))
+						else:
+								textbox.insert(INSERT,"Invalid Option")
+						textbox.config(state='disabled')
+						new.destroy()
+					newLabel1=Label(new,text=str(isPresent))
+					newEntry1=Entry(new,textvariable=ans)
+					newButton1=Button(new,text="Enter",command=test)
+					newLabel1.grid(row=0,column=0,sticky=W)
+					newEntry1.grid(row=0,column=1)
+					newButton1.grid(row=1,columnspan=2)
 				else:
-						textbox.insert(INSERT,"Invalid Option")
-				textbox.config(state='disabled')
-				new.destroy()
-			newLabel1=Label(new,text=str(isPresent))
-			newEntry1=Entry(new,textvariable=ans)
-			newButton1=Button(new,text="Enter",command=test)
-			newLabel1.grid(row=0,column=0,sticky=W)
-			newEntry1.grid(row=0,column=1)
-			newButton1.grid(row=1,columnspan=2)
+					teacherAttendence[name]=4
+					textbox.insert(INSERT,"{} marked present (late) at {}".format(name,datetime.now().strftime("%H:%M:%S")))
 		else:
-			teacherAttendence[name]=1
-			textbox.insert(INSERT,"{} marked present at {}".format(name,datetime.now().strftime("%H:%M:%S")))
-	else:
-		textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+			textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+	elif int(datetime.now().strftime("%H%M"))>1200:
+		textbox.insert(INSERT,"Cannot mark attendence after 12:00 PM")
+	elif int(datetime.now().strftime("%H%M"))<600:
+		textbox.insert(INSERT,"Cannot mark attendence before 6:00 AM")
 	att.set("")
 	textbox.config(state='disabled')
 
@@ -208,6 +267,8 @@ def showCurrentAtt():
 			c="On Leave"
 		elif teacherAttendence[i]==3:
 			c="On Half Day"
+		elif teacherAttendence[i]==4:
+			c="Present (late)"
 		else:
 			c="Absent"
 		textbox.insert(INSERT,"{} is {}\n".format(i,c))
@@ -302,74 +363,69 @@ def showTimetable():
 		a=teacherCode[name]
 		if a=="CSG":
 			CSG={"Monday":['12-B','12-B',0,0,'12-C','12-C',0,0],"Tuesday":[0,0,'12-C','12-C','12-A','12-A',0,0],"Wednesday":['12-C','12-C','12-A','12-A',0,0,'12-B','12-B'],"Thursday":['12-B','12-B',0,0,'12-A','12-A','12-C','12-C'],"Friday":[0,0,'12-A','12-A','12-B','12-B',0,0]}
-			for i in CSG:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in CSG[i]:
-						if j!=0:
-							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
-						else:
-							textbox.insert(INSERT,"Period {} is free\n".format(a))
-						a=a+1
-				else:
-					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
-					break
+			i=datetime.now().strftime("%A")
+			if i in CSG:
+				b=1
+				for j in CSG[i]:
+					if j!=0:
+						textbox.insert(INSERT,"Period {} in class {}\n".format(b,j))
+					else:
+						textbox.insert(INSERT,"Period {} is free\n".format(b))
+					b=b+1
+			else:
+				textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
 		elif a=="PLD":
 			PLD={"Monday":[1,1,1,1,0,0,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,0,0,1,1,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[0,0,0,0,1,1,1,1]}
-			for i in PLD:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in PLD[i]:
-						if j!=0:
-							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
-						else:
-							textbox.insert(INSERT,"Period {} is free\n".format(a))
-						a=a+1
-				else:
-					print("Today is a weekend, timetable not available\n")
-					break
+			i=datetime.now().strftime("%A")
+			if i in PLD:
+				b=1
+				for j in PLD[i]:
+					if j!=0:
+						textbox.insert(INSERT,"Period {} in class {}\n".format(b,j))
+					else:
+						textbox.insert(INSERT,"Period {} is free\n".format(b))
+					b=b+1
+			else:
+				textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
 		elif a=="MVK":
 			MVK={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[0,0,1,1,0,0,1,1],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[1,1,0,0,1,1,1,1]}
-			for i in MVK:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in MVK[i]:
-						if j!=0:
-							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
-						else:
-							textbox.insert(INSERT,"Period {} is free\n".format(a))
-						a=a+1
-				else:
-					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
-					break
+			i=datetime.now().strftime("%A")
+			if i in MVK:
+				b=1
+				for j in MVK[i]:
+					if j!=0:
+						textbox.insert(INSERT,"Period {} in class {}\n".format(b,j))
+					else:
+						textbox.insert(INSERT,"Period {} is free\n".format(b))
+					b=b+1
+			else:
+				textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
 		elif a=="CSHG":
 			CSHG={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[1,1,0,0,1,1,0,0],"Wednesday":[0,0,1,1,0,0,1,1],"Thursday":[1,1,0,0,0,0,1,1],"Friday":[1,1,1,1,1,1,0,0]}
-			for i in CSHG:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in CSHG[i]:
-						if j!=0:
-							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
-						else:
-							textbox.insert(INSERT,"Period {} is free\n".format(a))
-						a=a+1
-				else:
-					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
-					break
+			i=datetime.now().strftime("%A")
+			if i in CSHG:
+				b=1
+				for j in CSHG[i]:
+					if j!=0:
+						textbox.insert(INSERT,"Period {} in class {}\n".format(b,j))
+					else:
+						textbox.insert(INSERT,"Period {} is free\n".format(b))
+					b=b+1
+			else:
+				textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
 		elif a=="ESB":
 			ESB={"Monday":[1,1,0,0,1,1,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[0,0,1,1,0,0,1,1],"Friday":[0,0,1,1,0,0,1,1]}
-			for i in ESB:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in ESB[i]:
-						if j!=0:
-							textbox.insert(INSERT,"Period {} in class {}\n".format(a,j))
-						else:
-							textbox.insert(INSERT,"Period {} is free\n".format(a))
-						a=a+1
-				else:
-					textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
-					break
+			i=datetime.now().strftime("%A")
+			if i in ESB:
+				b=1
+				for j in ESB[i]:
+					if j!=0:
+						textbox.insert(INSERT,"Period {} in class {}\n".format(b,j))
+					else:
+						textbox.insert(INSERT,"Period {} is free\n".format(b))
+					b=b+1
+			else:
+				textbox.insert(INSERT,"Today is a weekend, timetable not available\n")
 		else:
 			textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name\n")
 	else:
