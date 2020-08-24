@@ -173,7 +173,7 @@ def onLeave():
 			def test():
 				if ans.get()=="Y":
 					textbox.config(state='normal')
-					teacherAttendence[name]=3
+					teacherAttendence[name]=2
 					textbox.insert(INSERT,"{} is now marked on leave at {}".format(name,datetime.now().strftime("%H:%M:%S")))
 				elif ans.get()=="N":
 					textbox.insert(INSERT,"{} is marked on half day".format(name))
