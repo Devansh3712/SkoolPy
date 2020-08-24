@@ -1,5 +1,5 @@
 # SkoolPy
-SkoolPy is a school management system GUI program made using python.
+SkoolPy is a school management system program made using python.
 
 ![Python](https://img.shields.io/badge/-Python-000000?style=flat&logo=python)
 [![Version](https://badge.fury.io/gh/tterb%2FHyde.svg)](https://badge.fury.io/gh/tterb%2FHyde)
