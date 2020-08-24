@@ -232,7 +232,17 @@ teacherAttendence={"Sadhvi Gautam":0,"Liji Davis":0,"Vipin Kumar":0,"Halina Gupt
 teacherCode={"Sadhvi Gautam":"CSG","Liji Davis":"PLD","Vipin Kumar":"MVK","Halina Gupta":"CSHG","Sudhi Bhatia":"ESB"}
 
 print()
-print(">>> School Management System <<<")
+print('''
+   _____ _               _ _____       
+  / ____| |             | |  __ \      
+ | (___ | | _____   ___ | | |__) |   _ 
+  \___ \| |/ / _ \ / _ \| |  ___/ | | |
+  ____) |   < (_) | (_) | | |   | |_| |
+ |_____/|_|\_\___/ \___/|_|_|    \__, |
+                                  __/ |
+                                 |___/ 
+                                 ''')
+time.sleep(3)
 print()
 print(">>> "+datetime.now().strftime("%B %d, %Y %H:%M:%S")+" <<<")
 print()
