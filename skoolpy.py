@@ -159,74 +159,69 @@ def showTimetable(name):
 		a=teacherCode[name]
 		if a=="CSG":
 			CSG={"Monday":['12-B','12-B',0,0,'12-C','12-C',0,0],"Tuesday":[0,0,'12-C','12-C','12-A','12-A',0,0],"Wednesday":['12-C','12-C','12-A','12-A',0,0,'12-B','12-B'],"Thursday":['12-B','12-B',0,0,'12-A','12-A','12-C','12-C'],"Friday":[0,0,'12-A','12-A','12-B','12-B',0,0]}
-			for i in CSG:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in CSG[i]:
-						if j!=0:
-							print("Period {} in class {}".format(a,j))
-						else:
-							print("Period {} is free".format(a))
-						a=a+1
-				else:
-					print("Today is a weekend, timetable not available")
-					break
+			i=datetime.now().strftime("%A")
+			if i in CSG:
+				b=1
+				for j in CSG[i]:
+					if j!=0:
+						print("Period {} in class {}".format(b,j))
+					else:
+						print("Period {} is free".format(b))
+					b=b+1
+			else:
+				print("Today is a weekend, timetable not available")
 		elif a=="PLD":
 			PLD={"Monday":[1,1,1,1,0,0,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,0,0,1,1,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[0,0,0,0,1,1,1,1]}
-			for i in PLD:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in PLD[i]:
-						if j!=0:
-							print("Period {} in class {}".format(a,j))
-						else:
-							print("Period {} is free".format(a))
-						a=a+1
-				else:
-					print("Today is a weekend, timetable not available")
-					break
+			i=datetime.now().strftime("%A")
+			if i in PLD:
+				b=1
+				for j in PLD[i]:
+					if j!=0:
+						print("Period {} in class {}".format(b,j))
+					else:
+						print("Period {} is free".format(b))
+					b=b+1
+			else:
+				print("Today is a weekend, timetable not available")
 		elif a=="MVK":
 			MVK={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[0,0,1,1,0,0,1,1],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[1,1,0,0,1,1,1,1]}
-			for i in MVK:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in MVK[i]:
-						if j!=0:
-							print("Period {} in class {}".format(a,j))
-						else:
-							print("Period {} is free".format(a))
-						a=a+1
-				else:
-					print("Today is a weekend, timetable not available")
-					break
+			i=datetime.now().strftime("%A")
+			if i in MVK:
+				b=1
+				for j in MVK[i]:
+					if j!=0:
+						print("Period {} in class {}".format(b,j))
+					else:
+						print("Period {} is free".format(b))
+					b=b+1
+			else:
+				print("Today is a weekend, timetable not available")
 		elif a=="CSHG":
 			CSHG={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[1,1,0,0,1,1,0,0],"Wednesday":[0,0,1,1,0,0,1,1],"Thursday":[1,1,0,0,0,0,1,1],"Friday":[1,1,1,1,1,1,0,0]}
-			for i in CSHG:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in CSHG[i]:
-						if j!=0:
-							print("Period {} in class {}".format(a,j))
-						else:
-							print("Period {} is free".format(a))
-						a=a+1
-				else:
-					print("Today is a weekend, timetable not available")
-					break
+			i=datetime.now().strftime("%A")
+			if i in CSHG:
+				b=1
+				for j in CSHG[i]:
+					if j!=0:
+						print("Period {} in class {}".format(b,j))
+					else:
+						print("Period {} is free".format(b))
+					b=b+1
+			else:
+				print("Today is a weekend, timetable not available")
 		elif a=="ESB":
 			ESB={"Monday":[1,1,0,0,1,1,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[0,0,1,1,0,0,1,1],"Friday":[0,0,1,1,0,0,1,1]}
-			for i in ESB:
-				if i==datetime.now().strftime("%A") and (datetime.now().strftime("%A")!="Saturday" or datetime.now().strftime("%A")!="Sunday"):
-					a=1
-					for j in ESB[i]:
-						if j!=0:
-							print("Period {} in class {}".format(a,j))
-						else:
-							print("Period {} is free".format(a))
-						a=a+1
-				else:
-					print("Today is a weekend, timetable not available")
-					break
+			i=datetime.now().strftime("%A")
+			if i in ESB:
+				b=1
+				for j in ESB[i]:
+					if j!=0:
+						print("Period {} in class {}".format(b,j))
+					else:
+						print("Period {} is free".format(b))
+					b=b+1
+			else:
+				print("Today is a weekend, timetable not available")
 		else:
 			print("Name not found in record, try capitalizing initials of your name")
 	else:
