@@ -125,7 +125,7 @@ def attendence():
 				else:
 					teacherAttendence[name]=4
 					textbox.insert(INSERT,"{} marked present (late) at {}".format(name,datetime.now().strftime("%H:%M:%S")))
-		else:
+		elif name not in subjects.values():
 			textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
 	elif int(datetime.now().strftime("%H%M"))>1200:
 		textbox.insert(INSERT,"Cannot mark attendence after 12:00 PM")
@@ -139,7 +139,7 @@ def onLeave():
 	textbox.delete(1.0,"end")
 	name=str(leave.get())
 	if name in subjects.values():
-		if teacherAttendence[name]==1:
+		if teacherAttendence[name]==1 or teacherAttendence[name]==4:
 			new=Toplevel(root)
 			new.title("SkoolPy")
 			new.resizable(False,False)
@@ -201,7 +201,7 @@ def onHalfDay():
 	name=str(half.get())
 	if int(datetime.now().strftime("%H%M"))>=1200:
 		if name in subjects.values():
-			if teacherAttendence[name]==1:
+			if teacherAttendence[name]==1 or teacherAttendence[name]==4:
 				new=Toplevel(root)
 				new.title("SkoolPy")
 				new.resizable(False,False)
@@ -326,6 +326,8 @@ def exportData():
 			f.write("{} is on leave".format(i))
 		elif teacherAttendence[i]==3:
 			f.write("{} is on half day".format(i))
+		elif teacherAttendence[i]==4:
+			f.write("{} is present (late)".format(i))
 		else:
 			f.write("{} is absent".format(i))
 		f.write("\n")
@@ -339,17 +341,189 @@ def checkTeacherStatus():
 	textbox.delete(1.0,"end")
 	name=str(stat.get())
 	if name in teacherAttendence:
-		for i in teacherAttendence:
-			if i==name:
-				textbox.insert(INSERT,"{} teaches {}\n".format(name,list(subjects.keys())[list(subjects.values()).index(i)]))
-				if teacherAttendence[i]==1:
-					textbox.insert(INSERT,"{} is present".format(name))
-				elif teacherAttendence[i]==2:
-					textbox.insert(INSERT,"{} is on leave".format(name))
-				elif teacherAttendence[i]==3:
-					textbox.insert(INSERT,"{} is on half day".format(name))
+		textbox.insert(INSERT,"{} teaches {}\n".format(name,list(subjects.keys())[list(subjects.values()).index(name)]))
+		if teacherAttendence[name]==1:
+			textbox.insert(INSERT,"{} is present\n".format(name))
+		elif teacherAttendence[name]==2:
+			textbox.insert(INSERT,"{} is on leave\n".format(name))
+		elif teacherAttendence[name]==3:
+			textbox.insert(INSERT,"{} is on half day\n".format(name))
+		elif teacherAttendence[name]==4:
+			textbox.insert(INSERT,"{} is present (late)\n".format(name))
+		else:
+			textbox.insert(INSERT,"{} is Absent\n".format(name))
+		if teacherAttendence[name]==1 or teacherAttendence[name]==4:
+			a=teacherCode[name]
+			if a=="CSG":
+				CSG={"Monday":['12-B','12-B',0,0,'12-C','12-C',0,0],"Tuesday":[0,0,'12-C','12-C','12-A','12-A',0,0],"Wednesday":['12-C','12-C','12-A','12-A',0,0,'12-B','12-B'],"Thursday":['12-B','12-B',0,0,'12-A','12-A','12-C','12-C'],"Friday":[0,0,'12-A','12-A','12-B','12-B',0,0]}
+				i=datetime.now().strftime("%A")
+				if i in CSG:
+					if int(datetime.now().strftime("%H%M"))>850 and int(datetime.now().strftime("%H%M"))<=925:
+						if CSG[i][0]!=0:
+							textbox.insert(INSERT,"Period 1 in {}".format(PLD[i][0]))
+						else:
+							textbox.insert(INSERT,"Period 1 is free")
+					elif int(datetime.now().strftime("%H%M"))>925 and int(datetime.now().strftime("%H%M"))<=1000:
+						if CSG[i][1]!=0:
+							textbox.insert(INSERT,"Period 2 in {}".format(PLD[i][1]))
+						else:
+							textbox.insert(INSERT,"Period 2 is free")
+					elif int(datetime.now().strftime("%H%M"))>1000 and int(datetime.now().strftime("%H%M"))<=1035:
+						if CSG[i][2]!=0:
+							textbox.insert(INSERT,"Period 3 in {}".format(PLD[i][2]))
+						else:
+							textbox.insert(INSERT,"Period 3 is free")
+					elif int(datetime.now().strftime("%H%M"))>1035 and int(datetime.now().strftime("%H%M"))<=1110:
+						if CSG[i][3]!=0:
+							textbox.insert(INSERT,"Period 4 in {}".format(PLD[i][3]))
+						else:
+							textbox.insert(INSERT,"Period 4 is free")
+					elif int(datetime.now().strftime("%H%M"))>1130 and int(datetime.now().strftime("%H%M"))<=1205:
+						if CSG[i][4]!=0:
+							textbox.insert(INSERT,"Period 5 in {}".format(PLD[i][4]))
+						else:
+							textbox.insert(INSERT,"Period 5 is free")
+					elif int(datetime.now().strftime("%H%M"))>1205 and int(datetime.now().strftime("%H%M"))<=1240:
+						if CSG[i][5]!=0:
+							textbox.insert(INSERT,"Period 6 in {}".format(PLD[i][5]))
+						else:
+							textbox.insert(INSERT,"Period 6 is free")
+					elif int(datetime.now().strftime("%H%M"))>1240 and int(datetime.now().strftime("%H%M"))<=1315:
+						if CSG[i][6]!=0:
+							textbox.insert(INSERT,"Period 7 in {}".format(PLD[i][6]))
+						else:
+							textbox.insert(INSERT,"Period 7 is free")
+					elif int(datetime.now().strftime("%H%M"))>1315 and int(datetime.now().strftime("%H%M"))<=1350:
+						if CSG[i][7]!=0:
+							textbox.insert(INSERT,"Period 8 in {}".format(PLD[i][7]))
+						else:
+							textbox.insert(INSERT,"Period 8 is free")
+					else:
+						textbox.insert(INSERT,"Data for current time not available")
 				else:
-					textbox.insert(INSERT,"{} is Absent".format(name))
+					textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+			if a=="PLD":
+				PLD={"Monday":['12-B','12-B','12-C','12-C',0,0,'12-A','12-A'],"Tuesday":['12-A','12-A','12-C','12-C',0,0,0,0],"Wednesday":['12-B','12-B',0,0,'12-C','12-C',0,0],"Thursday":['12-C','12-C','12-A','12-A',0,0,'12-B','12-B'],"Friday":[0,0,0,0,'12-A','12-A','12-B','12-B']}
+				i=datetime.now().strftime("%A")
+				if i in PLD:
+					if int(datetime.now().strftime("%H%M"))>850 and int(datetime.now().strftime("%H%M"))<=925:
+						if PLD[i][0]!=0:
+							textbox.insert(INSERT,"Period 1 in {}".format(PLD[i][0]))
+						else:
+							textbox.insert(INSERT,"Period 1 is free")
+					elif int(datetime.now().strftime("%H%M"))>925 and int(datetime.now().strftime("%H%M"))<=1000:
+						if PLD[i][1]!=0:
+							textbox.insert(INSERT,"Period 2 in {}".format(PLD[i][1]))
+						else:
+							textbox.insert(INSERT,"Period 2 is free")
+					elif int(datetime.now().strftime("%H%M"))>1000 and int(datetime.now().strftime("%H%M"))<=1035:
+						if PLD[i][2]!=0:
+							textbox.insert(INSERT,"Period 3 in {}".format(PLD[i][2]))
+						else:
+							textbox.insert(INSERT,"Period 3 is free")
+					elif int(datetime.now().strftime("%H%M"))>1035 and int(datetime.now().strftime("%H%M"))<=1110:
+						if PLD[i][3]!=0:
+							textbox.insert(INSERT,"Period 4 in {}".format(PLD[i][3]))
+						else:
+							textbox.insert(INSERT,"Period 4 is free")
+					elif int(datetime.now().strftime("%H%M"))>1130 and int(datetime.now().strftime("%H%M"))<=1205:
+						if PLD[i][4]!=0:
+							textbox.insert(INSERT,"Period 5 in {}".format(PLD[i][4]))
+						else:
+							textbox.insert(INSERT,"Period 5 is free")
+					elif int(datetime.now().strftime("%H%M"))>1205 and int(datetime.now().strftime("%H%M"))<=1240:
+						if PLD[i][5]!=0:
+							textbox.insert(INSERT,"Period 6 in {}".format(PLD[i][5]))
+						else:
+							textbox.insert(INSERT,"Period 6 is free")
+					elif int(datetime.now().strftime("%H%M"))>1240 and int(datetime.now().strftime("%H%M"))<=1315:
+						if PLD[i][6]!=0:
+							textbox.insert(INSERT,"Period 7 in {}".format(PLD[i][6]))
+						else:
+							textbox.insert(INSERT,"Period 7 is free")
+					elif int(datetime.now().strftime("%H%M"))>1315 and int(datetime.now().strftime("%H%M"))<=1350:
+						if PLD[i][7]!=0:
+							textbox.insert(INSERT,"Period 8 in {}".format(PLD[i][7]))
+						else:
+							textbox.insert(INSERT,"Period 8 is free")
+					else:
+						textbox.insert(INSERT,"Data for current time not available")
+				else:
+					textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+			if a=="MVK":
+				MVK={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[0,0,1,1,0,0,1,1],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[1,1,1,1,0,0,1,1],"Friday":[1,1,0,0,1,1,1,1]}
+				i=datetime.now().strftime("%A")
+				if i in MVK:
+					if int(datetime.now().strftime("%H%M"))>850 and int(datetime.now().strftime("%H%M"))<=925:
+						textbox.insert(INSERT,"Period 1 in {}".format(MVK[i][0]))
+					elif int(datetime.now().strftime("%H%M"))>925 and int(datetime.now().strftime("%H%M"))<=1000:
+						textbox.insert(INSERT,"Period 2 in {}".format(MVK[i][1]))
+					elif int(datetime.now().strftime("%H%M"))>1000 and int(datetime.now().strftime("%H%M"))<=1035:
+						textbox.insert(INSERT,"Period 3 in {}".format(MVK[i][2]))
+					elif int(datetime.now().strftime("%H%M"))>1035 and int(datetime.now().strftime("%H%M"))<=1110:
+						textbox.insert(INSERT,"Period 4 in {}".format(MVK[i][3]))
+					elif int(datetime.now().strftime("%H%M"))>1130 and int(datetime.now().strftime("%H%M"))<=1205:
+						textbox.insert(INSERT,"Period 5 in {}".format(MVK[i][4]))
+					elif int(datetime.now().strftime("%H%M"))>1205 and int(datetime.now().strftime("%H%M"))<=1240:
+						textbox.insert(INSERT,"Period 6 in {}".format(MVK[i][5]))
+					elif int(datetime.now().strftime("%H%M"))>1240 and int(datetime.now().strftime("%H%M"))<=1315:
+						textbox.insert(INSERT,"Period 7 in {}".format(MVK[i][6]))
+					elif int(datetime.now().strftime("%H%M"))>1315 and int(datetime.now().strftime("%H%M"))<=1350:
+						textbox.insert(INSERT,"Period 8 in {}".format(MVK[i][7]))
+					else:
+						textbox.insert(INSERT,"Data for current time not available")
+				else:
+					textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+			if a=="CSHG":
+				CSHG={"Monday":[1,1,0,0,0,0,1,1],"Tuesday":[1,1,0,0,1,1,0,0],"Wednesday":[0,0,1,1,0,0,1,1],"Thursday":[1,1,0,0,0,0,1,1],"Friday":[1,1,1,1,1,1,0,0]}
+				i=datetime.now().strftime("%A")
+				if i in CSHG:
+					if int(datetime.now().strftime("%H%M"))>850 and int(datetime.now().strftime("%H%M"))<=925:
+						textbox.insert(INSERT,"Period 1 in {}".format(CSHG[i][0]))
+					elif int(datetime.now().strftime("%H%M"))>925 and int(datetime.now().strftime("%H%M"))<=1000:
+						textbox.insert(INSERT,"Period 2 in {}".format(CSHG[i][1]))
+					elif int(datetime.now().strftime("%H%M"))>1000 and int(datetime.now().strftime("%H%M"))<=1035:
+						textbox.insert(INSERT,"Period 3 in {}".format(CSHG[i][2]))
+					elif int(datetime.now().strftime("%H%M"))>1035 and int(datetime.now().strftime("%H%M"))<=1110:
+						textbox.insert(INSERT,"Period 4 in {}".format(CSHG[i][3]))
+					elif int(datetime.now().strftime("%H%M"))>1130 and int(datetime.now().strftime("%H%M"))<=1205:
+						textbox.insert(INSERT,"Period 5 in {}".format(CSHG[i][4]))
+					elif int(datetime.now().strftime("%H%M"))>1205 and int(datetime.now().strftime("%H%M"))<=1240:
+						textbox.insert(INSERT,"Period 6 in {}".format(CSHG[i][5]))
+					elif int(datetime.now().strftime("%H%M"))>1240 and int(datetime.now().strftime("%H%M"))<=1315:
+						textbox.insert(INSERT,"Period 7 in {}".format(CSHG[i][6]))
+					elif int(datetime.now().strftime("%H%M"))>1315 and int(datetime.now().strftime("%H%M"))<=1350:
+						textbox.insert(INSERT,"Period 8 in {}".format(CSHG[i][7]))
+					else:
+						textbox.insert(INSERT,"Data for current time not available")
+				else:
+					textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+			if a=="ESB":
+				ESB={"Monday":[1,1,0,0,1,1,1,1],"Tuesday":[1,1,1,1,0,0,0,0],"Wednesday":[1,1,1,1,0,0,0,0],"Thursday":[0,0,1,1,0,0,1,1],"Friday":[0,0,1,1,0,0,1,1]}
+				i=datetime.now().strftime("%A")
+				if i in ESB:
+					if int(datetime.now().strftime("%H%M"))>850 and int(datetime.now().strftime("%H%M"))<=925:
+						textbox.insert(INSERT,"Period 1 in {}".format(ESB[i][0]))
+					elif int(datetime.now().strftime("%H%M"))>925 and int(datetime.now().strftime("%H%M"))<=1000:
+						textbox.insert(INSERT,"Period 2 in {}".format(ESB[i][1]))
+					elif int(datetime.now().strftime("%H%M"))>1000 and int(datetime.now().strftime("%H%M"))<=1035:
+						textbox.insert(INSERT,"Period 3 in {}".format(ESB[i][2]))
+					elif int(datetime.now().strftime("%H%M"))>1035 and int(datetime.now().strftime("%H%M"))<=1110:
+						textbox.insert(INSERT,"Period 4 in {}".format(ESB[i][3]))
+					elif int(datetime.now().strftime("%H%M"))>1130 and int(datetime.now().strftime("%H%M"))<=1205:
+						textbox.insert(INSERT,"Period 5 in {}".format(ESB[i][4]))
+					elif int(datetime.now().strftime("%H%M"))>1205 and int(datetime.now().strftime("%H%M"))<=1240:
+						textbox.insert(INSERT,"Period 6 in {}".format(ESB[i][5]))
+					elif int(datetime.now().strftime("%H%M"))>1240 and int(datetime.now().strftime("%H%M"))<=1315:
+						textbox.insert(INSERT,"Period 7 in {}".format(ESB[i][6]))
+					elif int(datetime.now().strftime("%H%M"))>1315 and int(datetime.now().strftime("%H%M"))<=1350:
+						textbox.insert(INSERT,"Period 8 in {}".format(ESB[i][7]))
+					else:
+						textbox.insert(INSERT,"Data for current time not available")
+				else:
+					textbox.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
+		else:
+			textbox.insert(INSERT,"{} is not available today at school".format(name))
 	else:
 		text.insert(INSERT,"Name not found in record, try capitalizing initials of your name")
 	stat.set("")
