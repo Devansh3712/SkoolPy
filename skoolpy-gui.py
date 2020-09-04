@@ -360,42 +360,42 @@ def checkTeacherStatus():
 				if i in CSG:
 					if int(datetime.now().strftime("%H%M"))>850 and int(datetime.now().strftime("%H%M"))<=925:
 						if CSG[i][0]!=0:
-							textbox.insert(INSERT,"Period 1 in {}".format(PLD[i][0]))
+							textbox.insert(INSERT,"Period 1 in {}".format(CSG[i][0]))
 						else:
 							textbox.insert(INSERT,"Period 1 is free")
 					elif int(datetime.now().strftime("%H%M"))>925 and int(datetime.now().strftime("%H%M"))<=1000:
 						if CSG[i][1]!=0:
-							textbox.insert(INSERT,"Period 2 in {}".format(PLD[i][1]))
+							textbox.insert(INSERT,"Period 2 in {}".format(CSG[i][1]))
 						else:
 							textbox.insert(INSERT,"Period 2 is free")
 					elif int(datetime.now().strftime("%H%M"))>1000 and int(datetime.now().strftime("%H%M"))<=1035:
 						if CSG[i][2]!=0:
-							textbox.insert(INSERT,"Period 3 in {}".format(PLD[i][2]))
+							textbox.insert(INSERT,"Period 3 in {}".format(CSG[i][2]))
 						else:
 							textbox.insert(INSERT,"Period 3 is free")
 					elif int(datetime.now().strftime("%H%M"))>1035 and int(datetime.now().strftime("%H%M"))<=1110:
 						if CSG[i][3]!=0:
-							textbox.insert(INSERT,"Period 4 in {}".format(PLD[i][3]))
+							textbox.insert(INSERT,"Period 4 in {}".format(CSG[i][3]))
 						else:
 							textbox.insert(INSERT,"Period 4 is free")
 					elif int(datetime.now().strftime("%H%M"))>1130 and int(datetime.now().strftime("%H%M"))<=1205:
 						if CSG[i][4]!=0:
-							textbox.insert(INSERT,"Period 5 in {}".format(PLD[i][4]))
+							textbox.insert(INSERT,"Period 5 in {}".format(CSG[i][4]))
 						else:
 							textbox.insert(INSERT,"Period 5 is free")
 					elif int(datetime.now().strftime("%H%M"))>1205 and int(datetime.now().strftime("%H%M"))<=1240:
 						if CSG[i][5]!=0:
-							textbox.insert(INSERT,"Period 6 in {}".format(PLD[i][5]))
+							textbox.insert(INSERT,"Period 6 in {}".format(CSG[i][5]))
 						else:
 							textbox.insert(INSERT,"Period 6 is free")
 					elif int(datetime.now().strftime("%H%M"))>1240 and int(datetime.now().strftime("%H%M"))<=1315:
 						if CSG[i][6]!=0:
-							textbox.insert(INSERT,"Period 7 in {}".format(PLD[i][6]))
+							textbox.insert(INSERT,"Period 7 in {}".format(CSG[i][6]))
 						else:
 							textbox.insert(INSERT,"Period 7 is free")
 					elif int(datetime.now().strftime("%H%M"))>1315 and int(datetime.now().strftime("%H%M"))<=1350:
 						if CSG[i][7]!=0:
-							textbox.insert(INSERT,"Period 8 in {}".format(PLD[i][7]))
+							textbox.insert(INSERT,"Period 8 in {}".format(CSG[i][7]))
 						else:
 							textbox.insert(INSERT,"Period 8 is free")
 					else:
